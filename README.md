@@ -1,4 +1,4 @@
-# Carry Lookahead Adder
+# Ripple Carry Adder
 
 This is a generic, parameterized (sort of), implementation of a Ripple Carry Adder (RCA) in Verilog. It's been verified to work up to 64 bits, but nothing beyond that.
 
