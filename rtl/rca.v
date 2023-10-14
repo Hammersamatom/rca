@@ -6,8 +6,9 @@ module fulladder_1bit (
     output wire _c_out
 );
 
-    assign _sum = (_a ^ _b) ^ _c_in;
-    assign _c_out = (_a & _b) | ((_a ^ _b) & _c_in);
+    wire xor_1 = _a ^ _b;
+    assign _sum = xor_1 ^ _c_in;
+    assign _c_out = xor_1 ? _c_in : _a;
 
 endmodule
 
