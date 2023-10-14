@@ -23,8 +23,8 @@ module rca
     output wire _c_out,
 );
     wire [BITS:0] w_carry;
-    wire [BITS - 1:0] w_gen;
-    wire [BITS - 1:0] w_prop;
+    assign w_carry[0] = _c_in;
+
     wire [BITS - 1:0] w_sum;
 
     genvar fa_loop;
@@ -35,20 +35,11 @@ module rca
                 ._a(_a_in[fa_loop]),
                 ._b(_b_in[fa_loop]),
                 ._c_in(w_carry[fa_loop]),
-                ._sum(w_sum[fa_loop])
+                ._sum(w_sum[fa_loop]),
+                ._c_out(w_carry[fa_loop + 1])
             );
         end
     endgenerate
-
-    assign w_gen = _a_in & _b_in;
-    assign w_prop = _a_in | _b_in;
-
-    assign w_carry[0] = _c_in;
-    genvar wi;
-    for (wi = 1; wi <= BITS; wi++)
-    begin
-        assign w_carry[wi] = w_gen[wi - 1] | (w_prop[wi - 1] & w_carry[wi - 1]);
-    end
 
     assign _s_out = w_sum;
     assign _c_out = w_carry[BITS];
